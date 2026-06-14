@@ -56,7 +56,7 @@ async def check_hrs():
             
             for play in plays:
                 result = play.get("result", {})
-                if result.get("event") == "Home Run":
+                async with session.get(f"https://statsapi.mlb.com/api/v1/game/{game_pk}/feed/live") as r:
                     play_id = play.get("about", {}).get("atBatIndex", "")
                     
                     if play_id not in seen_hrs:
